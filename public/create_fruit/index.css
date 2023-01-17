@@ -1,0 +1,19 @@
+#container {
+  display: flex;
+  flex-direction: column;
+  max-width: 200px;
+}
+
+.input-container {
+  margin: 12px;
+}
+
+#navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+#navbar h1 {
+  background-color: lightcyan;
+  padding: 4px;
+}

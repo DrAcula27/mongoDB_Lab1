@@ -4,8 +4,9 @@ const mongoose = require("mongoose");
 // allows us to use information from .env in this file
 require("dotenv").config();
 
-// import MyFruit object from fruit.js
+// import MyFruit and MyVeggie objects
 const MyFruit = require("./models/fruit");
+const MyVeggie = require("./models/veggies");
 
 // create app by calling express function
 const app = express();
@@ -36,6 +37,7 @@ mongoose.connection.once("open", () => {
   console.log("connected to mongo");
 });
 
+// '/create_fruit' -> this route will get information from the front end and create a new Fruit in the collection
 app.post("/create_fruit", async (req, res) => {
   // destructuring - see more here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
   // renaming variable while destrucutring: https://wesbos.com/destructuring-renaming
@@ -60,25 +62,33 @@ app.post("/create_fruit", async (req, res) => {
   res.send(returnedValue);
 });
 
-// app.get("/get_data", (req, res) => {
-//   // Get data from MonogoDB,
-//   // res.json(data)
-//   res.setHeader("Content-Type", "application/json");
+// '/create_veggie' -> this route will get information from the front end and create a new Veggie in the collection
+app.post("/create_veggie", async (req, res) => {
+  // destructuring - see more here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+  // renaming variable while destrucutring: https://wesbos.com/destructuring-renaming
+  const {
+    nameString: name,
+    colorString: color,
+    ageNumber: age,
+    readyBool: readyToEat,
+  } = req.body;
 
-//   console.log("request received at /get_data");
-//   console.log(process.env.MONGOPASSWORD);
-//   res.json({ data: "Response from server" });
-// });
-
-app.delete("/delete_nameless_data", async (req, res) => {
-  let response = await MyFruit.deleteMany({ name: "" });
-
-  console.log(response);
-
-  res.send({ data: `deleted ${response.deletedCount} items.` });
+  // Model methods usually give us a promise, so we can wait for the response
+  let returnedValue = await MyVeggie.create({
+    name,
+    color,
+    age,
+    readyToEat,
+  });
+  console.log(returnedValue);
+  if (returnedValue) {
+    console.log("upload complete");
+  }
+  res.send(returnedValue);
 });
 
-app.get("/get_food_data", async (req, res) => {
+// '/fruits' -> this route will get all Fruit objects from the database and send them to the front end
+app.get("/get_fruit_data", async (req, res) => {
   // get data from database
   let response = await MyFruit.find({});
   console.log(response);
@@ -86,6 +96,31 @@ app.get("/get_food_data", async (req, res) => {
   res.json(response);
 });
 
+// '/veggies' -> this route will get all Veggie objects from the database and send them to the front end
+app.get("/veggies", (req, res) => {
+  // Get data from MonogoDB,
+  // res.json(data)
+  res.setHeader("Content-Type", "application/json");
+
+  console.log("request received at /get_data");
+  console.log(process.env.MONGOPASSWORD);
+  res.json({ data: "Response from server" });
+});
+
+// '/veggie/:veggieName' -> this route will take the veggieName and get that specific veggie from the database and send it to the front end to be displayed
+
+
+// '/delete_nameless_data' -> this route will delete all data that does not have a name
+app.delete("/delete_nameless_data", async (req, res) => {
+  let fruitResponse = await MyFruit.deleteMany({ name: "" });
+  let veggieResponse = await MyVeggie.deleteMany({ name: "" });
+
+  console.log(`${fruitResponse}\n${veggieResponse}`);
+
+  res.send({ data: `deleted ${fruitResponse.deletedCount} fruits and ${veggieResponse.deletedCount} veggies.` });
+});
+
+// tell server where to listen
 app.listen(5000, () => {
-  console.log(`Server is Listening on 5000`);
+  console.log(`Server is Listening on port 5000`);
 });

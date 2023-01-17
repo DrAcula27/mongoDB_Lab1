@@ -1,19 +1,19 @@
-#container {
+.container {
   display: flex;
-  flex-direction: column;
-  max-width: 200px;
-}
-
-.input-container {
-  margin: 12px;
-}
-
-#navbar {
-  display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
-#navbar h1 {
-  background-color: lightcyan;
-  padding: 4px;
+p {
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px;
+  background-color: azure;
+  border: 2px solid goldenrod;
+  border-radius: 5px;
+}
+
+p:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px 2px 4px rgba(218, 165, 32, 0.4);
 }

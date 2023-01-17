@@ -3,7 +3,7 @@ console.log("Display Page");
 let containerElement = document.getElementById("container");
 
 const getData = async () => {
-  let data = await fetch("/get_food_data");
+  let data = await fetch("/fruits");
   data.json().then((parsedData) => {
     console.log(parsedData); // array of objects
     // map through and put in HTML
