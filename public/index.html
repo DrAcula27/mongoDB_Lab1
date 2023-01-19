@@ -17,9 +17,20 @@
       <button type="button" id="create-veggie-btn">Create Veggie</button>
       <button type="button" id="show-veggies-btn">Show Veggies</button>
     </nav>
-    <form action="/:foodName" method="get">
-      <input type="text" id="user-query" name="user-query" placeholder="Search" />
-      <button type="submit" id="search-btn">Show Food Item</button>
+    <form>
+      <!-- action="http://localhost:5000/search/" method="get" -->
+      <div>
+        <input
+          type="search"
+          id="user-query"
+          name="user-query"
+          placeholder="Search"
+          required
+        />
+        <button id="search-btn">Search</button>
+        <span class="validity"></span>
+      </div>
     </form>
+    <section id="show-food-area" class="hidden"></section>
   </body>
 </html>
