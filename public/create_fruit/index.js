@@ -49,15 +49,3 @@ let showAllFruitsBtn = document.getElementById("show-all-fruits-btn");
 showAllFruitsBtn.addEventListener("click", () => {
   window.location.href = "../display_fruits";
 });
-
-// ***** MOVE TO INSIDE SHOW ALL FRUITS PAGE *****
-// let deleteButton = document.getElementById("delete");
-
-// deleteButton.addEventListener("click", async () => {
-//   let response = await fetch("http://localhost:5000/delete_nameless_data", {
-//     method: "delete",
-//   });
-
-//   let parsedData = await response.json();
-//   console.log(parsedData);
-// });
