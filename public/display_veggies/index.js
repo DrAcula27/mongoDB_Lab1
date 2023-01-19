@@ -26,6 +26,13 @@ homeBtn.addEventListener("click", () => {
   window.location.href = "../index.html";
 });
 
+// functionality to move to the create a veggie page
+let createVeggieBtn = document.getElementById("create-veggie-btn");
+
+createVeggieBtn.addEventListener("click", () => {
+  window.location.href = "../create_veggie";
+});
+
 // functionality to delete veggies that have no name
 let deleteButton = document.getElementById("delete");
 
@@ -36,4 +43,6 @@ deleteButton.addEventListener("click", async () => {
 
   let parsedData = await response.json();
   console.log(parsedData);
+
+  window.location.reload();
 });

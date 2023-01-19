@@ -40,10 +40,12 @@ searchBtn.addEventListener("click", async () => {
     showFoodArea.appendChild(errorMsg);
   } else {
     let res = await fetch(`http://localhost:5000/search/${userQuery}`);
+    console.log(res);
     let foodItem = await res.json();
     console.log(foodItem);
-    // const foodElement = document.createElement("div");
-    // foodElement.innerHTML = `<p>${res}</p>`;
-    // showFoodArea.appendChild(foodElement);
+    showFoodArea.classList.remove("hidden");
+    const foodElement = document.createElement("div");
+    foodElement.innerHTML = `<p>${foodItem}</p>`;
+    showFoodArea.appendChild(foodElement);
   }
 });
