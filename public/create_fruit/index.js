@@ -1,20 +1,13 @@
+// Functionality to add a fruit to the database
 let submitButton = document.getElementById("submit-button");
 
 submitButton.addEventListener("click", async () => {
-  // send a request to Express
-  // result is the response from the server
-  // get element
-  // let nameElement = document.getElementById('name-input')
-  // get value of element
-  // let nameString = nameElement.value;
-
   let nameString = document.getElementById("name-input").value;
   let colorString = document.getElementById("color-input").value;
   let ageNumber = +document.getElementById("age-input").value;
   let readyBool =
     document.getElementById("ready-bool").value === "true" ? true : false;
 
-  // packing all our data in an object: same as -> nameString: nameString
   const fruit = {
     nameString,
     colorString,
@@ -22,44 +15,49 @@ submitButton.addEventListener("click", async () => {
     readyBool,
   };
 
-  let response = await fetch("http://localhost:5000/create_fruit", {
+  let response = await fetch("http://localhost:5000/make_fruit", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    // to send JSON data over HTTP
     body: JSON.stringify(fruit),
   });
   let uploadStatusTag = document.getElementById("upload-status");
   console.log(response.status);
   if (response.status === 200) {
-    console.log(response);
-    console.log("upload complete!!!");
+    uploadStatusTag.classList.remove("hidden");
     uploadStatusTag.textContent = "Upload Completed";
     uploadStatusTag.style.color = "green";
   } else {
     console.log(response);
-    console.log("upload failed");
-    console.log;
+    uploadStatusTag.classList.remove("hidden");
     uploadStatusTag.textContent = "Upload Failed";
     uploadStatusTag.style.color = "red";
   }
 });
 
-let deleteButton = document.getElementById("delete");
+// functionality to return to the home page
+let homeBtn = document.getElementById("go-home-btn");
 
-deleteButton.addEventListener("click", async () => {
-  let response = await fetch("http://localhost:5000/delete_nameless_data", {
-    method: "delete",
-  });
-
-  let parsedData = await response.json();
-  console.log(parsedData);
+homeBtn.addEventListener("click", () => {
+  window.location.href = "../index.html";
 });
 
-let displayPageButton = document.getElementById("display-page-button");
+// functionality to display all fruits currently in the database
+let showAllFruitsBtn = document.getElementById("show-all-fruits-btn");
 
-displayPageButton.addEventListener("click", () => {
-  // change HTML files (from index to display_food.html)
-  window.location.href = "./display_food";
+showAllFruitsBtn.addEventListener("click", () => {
+  window.location.href = "../display_fruits";
 });
+
+// ***** MOVE TO INSIDE SHOW ALL FRUITS PAGE *****
+// let deleteButton = document.getElementById("delete");
+
+// deleteButton.addEventListener("click", async () => {
+//   let response = await fetch("http://localhost:5000/delete_nameless_data", {
+//     method: "delete",
+//   });
+
+//   let parsedData = await response.json();
+//   console.log(parsedData);
+// });

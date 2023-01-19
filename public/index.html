@@ -6,15 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
     <script defer src="./index.js"></script>
+    <link rel="stylesheet" href="./common.css" />
     <link rel="stylesheet" href="./index.css" />
   </head>
   <body>
-    <h1>What Would You Like to Do?</h1>
-    <div class="container">
-      <p id="create-fruit-btn">Create Fruit</p>
-      <p id="show-fruits-btn">Show Fruits</p>
-      <p id="create-veggie-btn">Create Veggie</p>
-      <p id="show-veggies-btn">Show Veggies</p>
-    </div>
+    <h1 id="page-title">What Would You Like to Do?</h1>
+    <nav id="navbar">
+      <button type="button" id="create-fruit-btn">Create Fruit</button>
+      <button type="button" id="show-fruits-btn">Show Fruits</button>
+      <button type="button" id="create-veggie-btn">Create Veggie</button>
+      <button type="button" id="show-veggies-btn">Show Veggies</button>
+    </nav>
+    <form action="/:foodName" method="get">
+      <input type="text" id="user-query" name="user-query" placeholder="Search" />
+      <button type="submit" id="search-btn">Show Food Item</button>
+    </form>
   </body>
 </html>

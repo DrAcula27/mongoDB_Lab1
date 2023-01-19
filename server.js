@@ -37,8 +37,8 @@ mongoose.connection.once("open", () => {
   console.log("connected to mongo");
 });
 
-// '/create_fruit' -> this route will get information from the front end and create a new Fruit in the collection
-app.post("/create_fruit", async (req, res) => {
+// '/make_fruit' -> this route will get information from the front end and create a new Fruit in the collection
+app.post("/make_fruit", async (req, res) => {
   // destructuring - see more here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
   // renaming variable while destrucutring: https://wesbos.com/destructuring-renaming
   const {
@@ -62,8 +62,8 @@ app.post("/create_fruit", async (req, res) => {
   res.send(returnedValue);
 });
 
-// '/create_veggie' -> this route will get information from the front end and create a new Veggie in the collection
-app.post("/create_veggie", async (req, res) => {
+// '/make_veggie' -> this route will get information from the front end and create a new Veggie in the collection
+app.post("/make_veggie", async (req, res) => {
   // destructuring - see more here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
   // renaming variable while destrucutring: https://wesbos.com/destructuring-renaming
   const {
@@ -87,8 +87,8 @@ app.post("/create_veggie", async (req, res) => {
   res.send(returnedValue);
 });
 
-// '/fruits' -> this route will get all Fruit objects from the database and send them to the front end
-app.get("/get_fruit_data", async (req, res) => {
+// '/show_all_fruits' -> this route will get all Fruit objects from the database and send them to the front end
+app.get("/show_all_fruits", async (req, res) => {
   // get data from database
   let response = await MyFruit.find({});
   console.log(response);
@@ -96,19 +96,17 @@ app.get("/get_fruit_data", async (req, res) => {
   res.json(response);
 });
 
-// '/veggies' -> this route will get all Veggie objects from the database and send them to the front end
-app.get("/veggies", (req, res) => {
-  // Get data from MonogoDB,
-  // res.json(data)
-  res.setHeader("Content-Type", "application/json");
-
-  console.log("request received at /get_data");
-  console.log(process.env.MONGOPASSWORD);
-  res.json({ data: "Response from server" });
+// '/show_all_veggies' -> this route will get all Veggie objects from the database and send them to the front end
+app.get("/show_all_veggies", async (req, res) => {
+  // get data from database
+  let response = await MyVeggie.find({});
+  console.log(response);
+  // send it back to front end
+  res.json(response);
 });
 
-// '/veggie/:veggieName' -> this route will take the veggieName and get that specific veggie from the database and send it to the front end to be displayed
-
+// '/search/:foodName' -> this route will take the value of the user's search and get that specific fruit or veggie from the database and send it to the front end to be displayed
+// req.params.foodName
 
 // '/delete_nameless_data' -> this route will delete all data that does not have a name
 app.delete("/delete_nameless_data", async (req, res) => {

@@ -1,9 +1,7 @@
-console.log("Display Page");
-
 let containerElement = document.getElementById("container");
 
 const getData = async () => {
-  let data = await fetch("/fruits");
+  let data = await fetch("http://localhost:5000/show_all_fruits");
   data.json().then((parsedData) => {
     console.log(parsedData); // array of objects
     // map through and put in HTML
