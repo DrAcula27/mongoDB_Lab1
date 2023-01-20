@@ -53,7 +53,7 @@ searchBtn.addEventListener("click", async (event) => {
     <p>Name: ${foodItem[0].name}</p>
     <p>Color: ${foodItem[0].color}</p>
     <p>Age (in days): ${foodItem[0].age}</p>
-    <p>Ready to eat?: ${foodItem[0].readyToEat}</p>
+    <p>Ready to eat? ${foodItem[0].readyToEat}</p>
   `;
     } catch (error) {
       showFoodArea.style.color = "red";
