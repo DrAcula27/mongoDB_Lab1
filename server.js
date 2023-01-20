@@ -111,7 +111,7 @@ app.get("/search/:foodName", async (req, res) => {
   // let fruitRes = await MyFruit.find({ foodToShow });
   let veggieRes = await MyVeggie.find({ name: foodToShow });
   console.log(veggieRes);
-  res.send(veggieRes);
+  res.json(veggieRes);
 });
 
 // '/delete_nameless_fruit' -> this route will delete all fruits that do not have a name

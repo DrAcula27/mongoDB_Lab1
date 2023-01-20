@@ -29,7 +29,8 @@ showVeggiesBtn.addEventListener("click", () => {
 // functionality to search for a fruit or veggie
 let searchBtn = document.getElementById("search-btn");
 
-searchBtn.addEventListener("click", async () => {
+searchBtn.addEventListener("click", async (event) => {
+  event.preventDefault();
   let userQuery = document.getElementById("user-query").value;
   let showFoodArea = document.getElementById("show-food-area");
   if (userQuery === "") {
@@ -39,6 +40,7 @@ searchBtn.addEventListener("click", async () => {
       "Please type the name of a fruit or veggie in the search bar before clicking the search button!";
     showFoodArea.appendChild(errorMsg);
   } else {
+    console.log("made it to fetch");
     let res = await fetch(`http://localhost:5000/search/${userQuery}`);
     console.log(res);
     let foodItem = await res.json();
