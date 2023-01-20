@@ -108,10 +108,16 @@ app.get("/show_all_veggies", async (req, res) => {
 // '/search/:foodName' -> this route will take the value of the user's search and get that specific fruit or veggie from the database and send it to the front end to be displayed
 app.get("/search/:foodName", async (req, res) => {
   let foodToShow = req.params.foodName;
-  // let fruitRes = await MyFruit.find({ foodToShow });
-  let veggieRes = await MyVeggie.find({ name: foodToShow });
-  console.log(veggieRes);
-  res.json(veggieRes);
+  let regex = new RegExp(["^", foodToShow, "$"].join(""), "i");
+  let fruitRes = await MyFruit.find({ name: regex });
+  let veggieRes = await MyVeggie.find({ name: regex });
+  if (Object.keys(fruitRes).length === 0) {
+    console.log(`Veggie Response: ${veggieRes}`);
+    res.json(veggieRes);
+  } else if (Object.keys(veggieRes).length === 0) {
+    console.log(`Fruit Response: ${fruitRes}`);
+    res.json(fruitRes);
+  }
 });
 
 // '/delete_nameless_fruit' -> this route will delete all fruits that do not have a name

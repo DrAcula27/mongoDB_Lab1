@@ -31,23 +31,34 @@ let searchBtn = document.getElementById("search-btn");
 
 searchBtn.addEventListener("click", async (event) => {
   event.preventDefault();
-  let userQuery = document.getElementById("user-query").value;
   let showFoodArea = document.getElementById("show-food-area");
+  let userQuery = document.getElementById("user-query").value;
   if (userQuery === "") {
     showFoodArea.classList.remove("hidden");
-    const errorMsg = document.createElement("h2");
-    errorMsg.textContent =
-      "Please type the name of a fruit or veggie in the search bar before clicking the search button!";
-    showFoodArea.appendChild(errorMsg);
+    showFoodArea.style.color = "red";
+    showFoodArea.innerHTML =
+      "<h2>Please type the name of a fruit or veggie in the search bar before clicking the search button!</h2>";
   } else {
-    console.log("made it to fetch");
     let res = await fetch(`http://localhost:5000/search/${userQuery}`);
-    console.log(res);
     let foodItem = await res.json();
     console.log(foodItem);
-    showFoodArea.classList.remove("hidden");
-    const foodElement = document.createElement("div");
-    foodElement.innerHTML = `<p>${foodItem}</p>`;
-    showFoodArea.appendChild(foodElement);
+    try {
+      showFoodArea.classList.remove("hidden");
+      if (foodItem[0].readyToEat === true) {
+        showFoodArea.style.color = "green";
+      } else {
+        showFoodArea.style.color = "red";
+      }
+      showFoodArea.innerHTML = `
+    <p>Name: ${foodItem[0].name}</p>
+    <p>Color: ${foodItem[0].color}</p>
+    <p>Age (in days): ${foodItem[0].age}</p>
+    <p>Ready to eat?: ${foodItem[0].readyToEat}</p>
+  `;
+    } catch (error) {
+      showFoodArea.style.color = "red";
+      showFoodArea.innerHTML =
+        "<h2>That food item is not in the database. Please search for another item.</h2>";
+    }
   }
 });

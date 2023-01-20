@@ -27,8 +27,11 @@ input:valid ~ span::after {
 }
 
 #show-food-area {
+  font-weight: bold;
+  text-align: center;
   border: 2px solid var(--navy-blue);
   border-radius: 1em;
-  margin: 30px;
+  margin: 30px auto;
   padding: 0 20px;
+  max-width: 300px;
 }
